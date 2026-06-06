@@ -712,7 +712,7 @@ export default function App() {
         <FeatureBadges />
         
         {/* Booking Section */}
-        <div className="booking-card" !max-w-4xl mx-auto w-full" id="booking">
+        <div className="booking-card !max-w-4xl mx-auto w-full" id="booking">
           {isSuccess ? (
             <motion.div 
               initial={{ opacity: 0, scale: 0.9 }}
