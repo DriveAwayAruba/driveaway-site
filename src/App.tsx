@@ -135,7 +135,7 @@ const Sidebar = () => (
 );
 
 const FeatureBadges = () => (
-  <div className="flex flex-wrap gap-4">
+  <div className="flex flex-wrap gap-4 justify-center md:justify-start w-full mb-6">
     {[
       { icon: <Check size={18} />, text: 'Free Cancellation' },
       { icon: <Star size={18} />, text: '5/5 Rating' },
