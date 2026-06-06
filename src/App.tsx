@@ -135,7 +135,7 @@ const Sidebar = () => (
 );
 
 const FeatureBadges = () => (
-  <div className="flex flex-wrap gap-4 justify-center md:justify-start w-full mb-6">
+  <div className="flex flex-wrap gap-4 justify-center w-full mb-6">
     {[
       { icon: <Check size={18} />, text: 'Free Cancellation' },
       { icon: <Star size={18} />, text: '5/5 Rating' },
@@ -709,7 +709,7 @@ export default function App() {
       <Header />
       <Sidebar />
       <main className="main-slot">
-        <FeatureBadges />
+        
         
         {/* Booking Section */}
         <div className="booking-card !max-w-4xl mx-auto w-full" id="booking">
@@ -775,6 +775,7 @@ export default function App() {
           ) : (
             <>
               <div className="mb-10">
+                <FeatureBadges />
                 <h2 className="text-3xl font-black text-aruba-navy mb-2 uppercase tracking-tighter">Instant Reservation</h2>
                 <p className="text-slate-500 text-sm font-medium">Select your dates and preferred vehicle to start your journey.</p>
               </div>
