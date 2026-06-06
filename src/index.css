@@ -1,0 +1,130 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&family=Outfit:wght@600;800&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --color-aruba-navy: #1E3A5F;
+  --color-aruba-teal: #2AB5C8;
+  --color-aruba-teal-dark: #1A9BB5;
+  --color-aruba-gray-light: #F8FAFC;
+  --color-aruba-gray-border: #E2E8F0;
+  --color-aruba-charcoal: #2D3436;
+  --color-aruba-coral: #FF7675;
+  
+  --font-sans: "Poppins", sans-serif;
+  --font-display: "Poppins", sans-serif;
+  --font-logo: "Outfit", sans-serif;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  html, body, #root {
+    @apply h-full;
+  }
+  
+  body {
+    @apply font-sans text-slate-800 antialiased bg-white overflow-x-hidden;
+  }
+}
+
+.immersive-grid {
+  display: grid;
+  grid-template-columns: 400px 1fr;
+  grid-template-rows: 72px 1fr 60px;
+  height: 100vh;
+  width: 100vw;
+}
+
+.header-slot {
+  grid-column: 1 / 3;
+  @apply z-50;
+  border-top: 5px solid #00B5B5;
+  border-bottom: 5px solid #00B5B5;
+}
+
+.nav-link {
+  @apply relative py-2 cursor-pointer transition-all duration-300 font-medium text-sm;
+}
+
+.nav-link::after {
+  content: '';
+  @apply absolute bottom-0 left-0 w-0 h-0.5 bg-aruba-teal transition-all duration-300;
+}
+
+.nav-link:hover::after {
+  @apply w-full;
+}
+
+.sidebar-slot {
+  grid-column: 1;
+  grid-row: 2;
+  background: linear-gradient(135deg, #1E3A5F 0%, #1A9BB5 100%);
+  @apply p-12 flex flex-col justify-center relative overflow-hidden;
+}
+
+.main-slot {
+  grid-column: 2;
+  grid-row: 2;
+  @apply p-12 overflow-y-auto bg-white flex flex-col gap-12 scroll-smooth;
+}
+
+.footer-slot {
+  grid-column: 1 / 3;
+  grid-row: 3;
+  @apply bg-aruba-navy flex items-center justify-between px-12 text-[13px] text-white/60;
+}
+
+.booking-card {
+  @apply bg-white p-10 rounded-[16px] shadow-[0_8px_32px_rgba(0,0,0,0.15)] border-none max-w-2xl;
+}
+
+.form-input {
+  @apply w-full p-3 bg-white border border-[#E0E0E0] rounded-[8px] text-sm transition-all duration-200 outline-none focus:border-aruba-teal focus:ring-4 focus:ring-aruba-teal/10;
+}
+
+.btn-reserve {
+  @apply inline-flex items-center justify-center px-10 py-5 bg-aruba-teal text-white rounded-[8px] font-bold uppercase tracking-widest text-sm shadow-md hover:bg-aruba-teal-dark active:scale-95 transition-all;
+}
+
+.btn-submit {
+  @apply w-full h-[64px] bg-gradient-to-r from-aruba-navy to-aruba-teal text-white rounded-[8px] font-bold uppercase tracking-[0.2em] text-[13px] shadow-lg flex items-center justify-center gap-3 hover:brightness-110 hover:-translate-y-0.5 active:scale-[0.98] transition-all;
+}
+
+.cta-button {
+  @apply inline-flex items-center justify-center font-bold uppercase tracking-widest transition-all cursor-pointer rounded-lg;
+}
+
+.cta-primary {
+  @apply bg-aruba-teal text-white hover:bg-aruba-teal-dark active:scale-95;
+}
+
+.card-theme {
+  @apply bg-white rounded-xl shadow-[0_4px_20px_rgba(0,0,0,0.04)] border border-aruba-gray-border overflow-hidden transition-all duration-300 hover:shadow-[0_15px_35px_rgba(0,0,0,0.1)] hover:-translate-y-1;
+}
+
+.pill-badge {
+  @apply inline-flex items-center gap-3 bg-white px-5 py-3 rounded-[12px] shadow-[0_4px_15px_rgba(0,0,0,0.05)] border border-aruba-gray-border font-semibold text-[13px] text-aruba-navy;
+}
+
+@media (max-width: 1100px) {
+  .immersive-grid {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+    display: flex;
+    flex-direction: column;
+    height: auto;
+    width: 100vw;
+  }
+  
+  .sidebar-slot {
+    height: auto;
+    @apply py-20 px-8;
+  }
+  
+  .main-slot {
+    @apply h-auto px-8 overflow-y-visible;
+  }
+}
+

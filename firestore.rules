@@ -1,0 +1,41 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Global safety net (default-deny catch-all)
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // Common Global Helpers
+    function isSignedIn() { return request.auth != null; }
+    function isValidId(id) { return id is string && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$'); }
+    function incoming() { return request.resource.data; }
+
+    // Booking validation helper - ensures strict types and values matching our blueprint
+    function isValidBooking(data) {
+      return data.keys().hasAll(['name', 'phone', 'email', 'car', 'pickup', 'arrival', 'departure', 'pickupTime', 'createdAt', 'status', 'hasAfterHoursFee'])
+        && data.name is string && data.name.size() > 0 && data.name.size() <= 200
+        && data.phone is string && data.phone.size() > 0 && data.phone.size() <= 50
+        && data.email is string && data.email.size() > 0 && data.email.size() <= 200
+        && data.car is string && data.car.size() > 0 && data.car.size() <= 200
+        && data.pickup is string && data.pickup.size() > 0 && data.pickup.size() <= 200
+        && data.arrival is string && data.arrival.size() > 0 && data.arrival.size() <= 50
+        && data.departure is string && data.departure.size() > 0 && data.departure.size() <= 50
+        && data.pickupTime is string && data.pickupTime.size() > 0 && data.pickupTime.size() <= 50
+        && data.status == 'pending'
+        && data.hasAfterHoursFee is bool
+        && (data.get('flightNumber', '') is string && data.get('flightNumber', '').size() <= 50)
+        && (data.get('accommodationName', '') is string && data.get('accommodationName', '').size() <= 200)
+        && (data.get('airbnbName', '') is string && data.get('airbnbName', '').size() <= 200)
+        && (data.get('airbnbAddress', '') is string && data.get('airbnbAddress', '').size() <= 500)
+        && (data.get('specialInstructions', '') is string && data.get('specialInstructions', '').size() <= 1000)
+        && data.createdAt == request.time;
+    }
+
+    match /bookings/{bookingId} {
+      allow create: if isValidBooking(incoming());
+      // Admin reads or updates are restricted for client SDKs to ensure maximum PII security
+      allow read, update, delete: if false;
+    }
+  }
+}

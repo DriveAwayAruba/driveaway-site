@@ -1,0 +1,6 @@
+{
+  "name": "Drive Away Aruba",
+  "description": "Premium car rental company in Aruba offering top-tier vehicles and adventure-ready service.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
